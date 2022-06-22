@@ -1,7 +1,6 @@
 import Header from "../../Components/Header";
 import Filter from "../../Components/Filter";
 import Card from "../../Components/Card";
-import { getCuisines } from "../../API/ApiClient";
 import { useContext } from "react";
 import AppContext from "../../Context/AppContext";
 

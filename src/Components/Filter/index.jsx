@@ -3,27 +3,28 @@ import { useContext, useState } from "react";
 import AppContext from "../../Context/AppContext";
 
 function Filter() {
-  const { cuisines, handleFilter } = useContext(AppContext);
+  const { cuisines, countries, handleFilter } = useContext(AppContext);
 
   const ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const [cuisine, setCuisine] = useState(null);
-  const [country, setCountry] = useState(null);
-  const [rating, setRating] = useState(null);
+  const [cuisine, setCuisine] = useState("");
+  const [country, setCountry] = useState("");
+  const [rating, setRating] = useState("");
 
   const handleCuisineChange = (e) => {
     setCuisine(e.target.value);
-    handleFilter(e.target.value, country, rating);
   };
 
   const handleRatingChange = (e) => {
     setRating(e.target.value);
-    handleFilter(cuisine, country, e.target.value);
   };
 
   const handleCountryChange = (e) => {
     setCountry(e.target.value);
-    handleFilter(cuisine, e.target.value, rating);
+  };
+
+  const handleClick = async () => {
+    await handleFilter(cuisine, country, rating);
   };
 
   return (
@@ -31,23 +32,21 @@ function Filter() {
       <select
         type="select"
         className={styles.select}
+        value={cuisine}
         onChange={handleCuisineChange}
       >
-        <option selected value={null}>
-          Cuisine
-        </option>
+        <option value={""}>Kuchnia</option>
         {cuisines?.map((item) => (
-          <option value={item.id}>{item.name}</option>
+          <option value={item}>{item}</option>
         ))}
       </select>
       <select
         type="select"
         className={styles.select}
         onChange={handleRatingChange}
+        value={rating}
       >
-        <option selected value={null}>
-          Minimal rating
-        </option>
+        <option value={""}>Minimalna ocena</option>
         {ratings.map((item) => (
           <option value={item}>{item}</option>
         ))}
@@ -57,14 +56,16 @@ function Filter() {
         type="select"
         className={styles.select}
         onChange={handleCountryChange}
+        value={country}
       >
-        <option selected value={null}>
-          Country
-        </option>
-        {cuisines?.map((item) => (
-          <option value={item.countryOfOrigin}>{item.countryOfOrigin}</option>
+        <option value={""}>Kraj pochodzenia</option>
+        {countries?.map((item) => (
+          <option value={item}>{item}</option>
         ))}
       </select>
+      <button className={styles.button} onClick={handleClick}>
+        Filtruj
+      </button>
     </div>
   );
 }
