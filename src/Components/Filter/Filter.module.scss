@@ -5,6 +5,8 @@
   justify-content: center;
   padding: 20px;
   align-self: center;
+  background-color: #222;
+  height: 100px;
 }
 
 .select {
@@ -15,4 +17,16 @@
   margin-right: 20px;
   border-radius: 2px;
   padding-left: 10px;
+}
+
+.button {
+  height: 42px;
+  width: 200px;
+  border-style: none;
+  background-color: firebrick;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }

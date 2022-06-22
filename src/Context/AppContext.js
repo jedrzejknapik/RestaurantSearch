@@ -1,10 +1,15 @@
 import { createContext, useState, useEffect } from "react";
-import { getCuisines, getRestaurants } from "../API/ApiClient";
+import {
+  getCuisines,
+  getRestaurants,
+  getFilteredRestaurants,
+} from "../API/ApiClient";
 
 const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
   const [cuisines, setCuisines] = useState([]);
+  const [countries, setCountries] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteresRestaurants] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,7 +17,11 @@ export const AppContextProvider = ({ children }) => {
   useEffect(() => {
     const getApplicationData = async () => {
       const cuisines = await getCuisines();
-      setCuisines(cuisines.data);
+
+      const cuisineNames = cuisines?.data.map((c) => c.name);
+      const countriesNames = cuisines.data.map((c) => c.countryOfOrigin);
+      setCountries([...new Set(countriesNames)]);
+      setCuisines([...new Set(cuisineNames)]);
 
       const restaurants = await getRestaurants();
       setRestaurants(restaurants.data);
@@ -33,28 +42,23 @@ export const AppContextProvider = ({ children }) => {
     setFilteresRestaurants(filteredRestaurants);
   };
 
-  const handleFilter = (cuisine, rating, country) => {
-    //handleSearch(searchTerm);
-    // const filteredItems = [];
-    // for (const restaurant of filteredRestaurants) {
-    //   if (cuisine != null) {
-    //     if (restaurant.cuisines.filter((c) => c.id === cuisine).length > 0) {
-    //       filteredItems.push(restaurant);
-    //     }
-    //   }
-    //   if (rating != null) {
-    //     if (restaurant.ra.filter((c) => c.id === cuisine).length > 0) {
-    //       filteredItems.push(restaurant);
-    //     }
-    //   }
-    // }
-    // setFilteresRestaurants(filteredItems);
+  const handleFilter = async (cuisine, country, rating) => {
+    let uri = `?CouisineName=${cuisine}&MinimalRating=${
+      rating == "" ? 0 : rating
+    }&Country=${country}`;
+
+    let restaurants = { data: [] };
+    restaurants = await getFilteredRestaurants(uri);
+
+    setRestaurants([...restaurants.data]);
+    setFilteresRestaurants([...restaurants.data]);
   };
 
   return (
     <AppContext.Provider
       value={{
         cuisines,
+        countries,
         filteredRestaurants,
         handleSearch,
         handleFilter,
