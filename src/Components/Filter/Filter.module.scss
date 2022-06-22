@@ -1,0 +1,18 @@
+.filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  align-self: center;
+}
+
+.select {
+  width: 200px;
+  height: 42px;
+  border-style: none;
+  border: 1px solid black;
+  margin-right: 20px;
+  border-radius: 2px;
+  padding-left: 10px;
+}

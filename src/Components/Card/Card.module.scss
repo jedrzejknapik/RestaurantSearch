@@ -1,0 +1,60 @@
+.restaurantCard {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  width: 300px;
+  background-color: red;
+  background-color: black;
+  position: relative;
+  border-radius: 6px;
+  border: 2px solid white;
+  overflow: hidden;
+}
+
+.textContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  min-height: 150px;
+}
+
+.title {
+  font-size: 22px;
+}
+
+.image {
+  height: 100%;
+}
+
+.description {
+  height: 50px;
+  overflow: hidden;
+}
+
+.shader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+.link {
+  color: white;
+  background-color: brown;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 2px;
+  margin-top: 10px;
+}
+
+span.cuisine:not(:nth-child(1)) {
+  margin-left: 10px;
+}
